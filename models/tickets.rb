@@ -12,17 +12,30 @@ class Ticket
     @price = options['price'].to_i
   end
 
-  def check_if_enough_funds()
-    # if customer has enough $$, then allow ticket creation/save
-
-    # join tcikets to customers
+# if customer has enough $$, then allow ticket creation/save
+  def check_funds()
+    # join tickets to customers
+    # sql = "SELECT tickets.* FROM tickets
+    # INNER JOIN customers ON tickets.customer_id = customers.id
+    # WHERE customers.id = $1"
+    sql = "SELECT customers.* FROM customers
+    INNER JOIN tickets ON tickets.customer_id = customers.id
+    WHERE customers.id = $1"
+    values = [@customer_id]
+    result = SqlRunner.run(sql, values)
     # return sql customer object into array,
+    cust = result.map {|customer| Customer.new(customer)}
     # pull value from array, check if wallet > value, return true
+    return cust
+    # return customer_funds = cust[0]
+    # if customer_funds > self.price
+    #   return true
+    # end
     # else return false (which will not allow save method to run)
   end
 
   def save()
-    if self.check_if_enough_funds() == true
+    # if self.check_funds() == true
       # this is the save method if above method returns true i.e. if
       # customer has enough money in wallet to buy ticket
       sql = "INSERT INTO tickets (customer_id, screening_id, price)
@@ -30,7 +43,9 @@ class Ticket
       values = [@customer_id, @screening_id, @price]
       customer = SqlRunner.run(sql, values).first
       @id = customer['id'].to_i
-    end
+    # else
+    #   return "Insufficient funds"
+    # end
   end
 
   def update()
