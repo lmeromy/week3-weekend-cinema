@@ -15,23 +15,20 @@ class Ticket
 # if customer has enough $$, then allow ticket creation/save
   def check_funds()
     # join tickets to customers
-    # sql = "SELECT tickets.* FROM tickets
-    # INNER JOIN customers ON tickets.customer_id = customers.id
-    # WHERE customers.id = $1"
     sql = "SELECT customers.* FROM customers
     INNER JOIN tickets ON tickets.customer_id = customers.id
     WHERE customers.id = $1"
     values = [@customer_id]
     result = SqlRunner.run(sql, values)
     # return sql customer object into array,
-    cust = result.map {|customer| Customer.new(customer)}
+    cust = result.map {|customer| Customer.new(customer)}[0]
     # pull value from array, check if wallet > value, return true
-    return cust
-    # return customer_funds = cust[0]
-    # if customer_funds > self.price
-    #   return true
-    # end
-    # else return false (which will not allow save method to run)
+    # return cust.wallet
+    if cust.wallet > self.price  # is.true? cust.wallet > self.price
+       return true
+     else
+       return false
+    end
   end
 
   def save()

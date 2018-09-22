@@ -31,6 +31,8 @@ cust4 = Customer.new({'name' => 'Andrew', 'wallet' => 85})
 cust4.save()
 cust5 = Customer.new({'name' => 'Susan', 'wallet' => 40})
 cust5.save()
+cust6 = Customer.new({'name' => 'Broke Bill', 'wallet' => 2})
+cust6.save()
 
 cust1.wallet = 120
 cust1.update()
@@ -66,7 +68,7 @@ ticket6 = Ticket.new({'customer_id' => cust3.id, 'screening_id' => screening2.id
 ticket6.save()
 ticket7 = Ticket.new({'customer_id' => cust5.id, 'screening_id' => screening2.id, 'price' => 7})
 ticket7.save()
-ticket8 = Ticket.new({'customer_id' => cust4.id, 'screening_id' => screening1.id, 'price' => 7})
+ticket8 = Ticket.new({'customer_id' => cust6.id, 'screening_id' => screening1.id, 'price' => 7})
 ticket8.save()
 
 ticket8.price = 6
@@ -74,7 +76,7 @@ ticket8.update
 
 # ticket7.delete()
 
-# test check_if_enough_funds method works for cust with enough money:
+# test check_funds method works for cust with enough money:
 # ticket_test = Ticket.new({'customer_id' => cust4.id, 'screening_id' => screening1.id, 'price' => 7})
 # ticket_test.save()
 
