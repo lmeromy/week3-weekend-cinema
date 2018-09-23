@@ -37,22 +37,21 @@ cust6.save()
 cust1.wallet = 120
 cust1.update()
 
-# cust1.delete()
-# film2.delete()
 
 screening1 = Screening.new({'start_time' => '16:45', 'seats' => 50, 'film_id' => film3.id})
 screening1.save()
 screening2 = Screening.new({'start_time' => '17:50', 'seats' => 80, 'film_id' => film2.id})
 screening2.save()
-screening3 = Screening.new({'start_time' => '19:00', 'seats' => 150, 'film_id' => film1.id})
+screening3 = Screening.new({'start_time' => '18:20', 'seats' => 150, 'film_id' => film1.id})
 screening3.save()
 screening4 = Screening.new({'start_time' => '20:15', 'seats' => 80, 'film_id' => film4.id})
 screening4.save()
+screening5 = Screening.new({'start_time' => '20:45', 'seats' => 50, 'film_id' => film1.id})
+screening5.save()
 
 screening1.start_time = '16:30'
 screening1.update()
 
-# screening2.delete()
 
 ticket1 = Ticket.new({'customer_id' => cust1.id, 'screening_id' => screening3.id, 'price' => 10})
 ticket1.save()
@@ -73,8 +72,6 @@ ticket8.save()
 
 ticket8.price = 6
 ticket8.update
-
-# ticket7.delete()
 
 
 binding.pry

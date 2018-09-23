@@ -23,25 +23,23 @@ class Ticket
     # return sql customer object into array,
     cust = result.map {|customer| Customer.new(customer)}[0]
     # pull value from array, check if wallet > value, return true
-    # return cust.wallet
     if cust != nil
-      if cust.wallet > self.price  # is.true? cust.wallet > self.price
+      if cust.wallet > self.price
         return true
       end
     end
   end
 
+  # save method will execute if above method returns true i.e. if
+  # customer has enough money in wallet to buy ticket
+  # conditional logic is flawed! Something is broken when using the if
   def save()
-      # if self.check_funds() != nil #&& self.check_funds() != nil
-      # this is the save method if above method returns true i.e. if
-      # customer has enough money in wallet to buy ticket
+      # if self.check_funds() == true #&& self.check_funds() != nil
       sql = "INSERT INTO tickets (customer_id, screening_id, price)
       VALUES ($1, $2, $3) RETURNING id"
       values = [@customer_id, @screening_id, @price]
       customer = SqlRunner.run(sql, values).first
       @id = customer['id'].to_i
-    # else
-    #   return "Insufficient funds"
      # end
   end
 

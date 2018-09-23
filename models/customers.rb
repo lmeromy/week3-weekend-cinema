@@ -43,6 +43,7 @@ class Customer
     return film_array = result.map {|film_object| Film.new(film_object)}
   end
 
+# Buying tickets should decrease the funds of the customer by the price
   def buy_ticket(ticket)
     if self.wallet > ticket.price
       self.wallet = self.wallet - ticket.price

@@ -46,6 +46,39 @@ class Film
     return result.length()
   end
 
+  # Write a method that finds out what is the most popular time
+  # (most tickets sold) for a given film
+  # NOT WORKING YET!
+  def most_popular_time()
+    # join films, screenings, and tickets to get all tickets for each
+    # screening of given film
+    # get array of ticket objects
+    sql = "SELECT tickets.* FROM tickets
+    INNER JOIN screenings ON tickets.screening_id = screenings.id
+    WHERE film_id = $1"
+    values = [@id]
+    result = SqlRunner.run(sql, values)
+    tickets_array = result.map {|ticket_object| Ticket.new(ticket_object)}
+    # # pull ticket objects out by screening_id,
+    # # put those tickets into new arrays, one for each screening_id
+    # # if statement in the loop is flawed, but I am out of time!
+    # screening1 = []
+    # screening2 = []
+    # for i in tickets_array[i]
+    #   if tickets_array[i].screening_id == tickets_array[i+1].screening_id
+    #     screening1 << tickets_array[i]
+    #   else
+    #     screening2 << tickets_array[i+1]
+    #   end
+    # end
+    # # compare array lengths, return longest array
+    # if screening1.length() > screening2.length()
+    #   return screening1
+    # else
+    #   return screening2
+    # end
+  end
+
   def self.all()
     sql = "SELECT * FROM films"
     all_films = SqlRunner.run(sql)
