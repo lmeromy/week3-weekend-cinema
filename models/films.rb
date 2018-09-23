@@ -40,6 +40,12 @@ class Film
     customers_array = result.map {|cust_object| Customer.new(cust_object)}
   end
 
+  # Check how many customers are going to watch a certain film
+  def number_of_customers()
+    result = self.customers_attending
+    return result.length()
+  end
+
   def self.all()
     sql = "SELECT * FROM films"
     all_films = SqlRunner.run(sql)

@@ -43,21 +43,22 @@ class Customer
     return film_array = result.map {|film_object| Film.new(film_object)}
   end
 
-  # should create ticket here to test!
-  # then ticket.save
-  # then join cust and tickets to get Price
-  # subtract price from wallet
-  # upadte wallet!
-  def buy_ticket()
+  def buy_ticket(ticket)
+    if self.wallet > ticket.price
+      self.wallet = self.wallet - ticket.price
+    end
+    return self.update()
+  end
+
+  # Check how many tickets were bought by a customer
+  def how_many_tickets_bought()
     sql = "SELECT tickets.* FROM tickets
-    INNER JOIN screenings ON screenings.id = tickets.screening_id
+    INNER JOIN customers ON tickets.customer_id = customers.id
     WHERE customer_id = $1"
     values = [@id]
     result = SqlRunner.run(sql, values)
-    # return price for the sc
-    # after whole function runs, then update the customer so the wallet dunds decrease
-    self.update()
-
+    ticket_array = result.map {|ticket| Ticket.new(ticket)}
+    return ticket_array.length()
   end
 
   def self.all()

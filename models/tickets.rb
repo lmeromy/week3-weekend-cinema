@@ -24,15 +24,15 @@ class Ticket
     cust = result.map {|customer| Customer.new(customer)}[0]
     # pull value from array, check if wallet > value, return true
     # return cust.wallet
-    if cust.wallet > self.price  # is.true? cust.wallet > self.price
-       return true
-     else
-       return false
+    if cust != nil
+      if cust.wallet > self.price  # is.true? cust.wallet > self.price
+        return true
+      end
     end
   end
 
   def save()
-    # if self.check_funds() == true
+      # if self.check_funds() != nil #&& self.check_funds() != nil
       # this is the save method if above method returns true i.e. if
       # customer has enough money in wallet to buy ticket
       sql = "INSERT INTO tickets (customer_id, screening_id, price)
@@ -42,7 +42,7 @@ class Ticket
       @id = customer['id'].to_i
     # else
     #   return "Insufficient funds"
-    # end
+     # end
   end
 
   def update()

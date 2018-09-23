@@ -76,9 +76,6 @@ ticket8.update
 
 # ticket7.delete()
 
-# test check_funds method works for cust with enough money:
-# ticket_test = Ticket.new({'customer_id' => cust4.id, 'screening_id' => screening1.id, 'price' => 7})
-# ticket_test.save()
 
 binding.pry
 nil
